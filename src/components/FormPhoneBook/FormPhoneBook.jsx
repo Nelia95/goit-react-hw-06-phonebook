@@ -4,12 +4,16 @@ import Style from './FormPhoneBook.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNewContact } from 'redux/contactSlice';
+import { useSelector } from 'react-redux';
+import { getContact } from 'redux/selectors';
+import { Notify } from 'notiflix';
 
 const FormPhoneBook = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const NameInputFormId = uuidv4();
   const NumberInputFormId = uuidv4();
+  const contacts = useSelector(getContact);
   const dispatch = useDispatch();
 
   const handleChange = evt => {
@@ -29,11 +33,19 @@ const FormPhoneBook = () => {
   };
 
   const handleSubmit = evt => {
+    if (contacts.find(contact => contact.name === name)) {
+      Notify.failure(`${name} is already in contacts.`);
+      return false;
+    } else if (contacts.find(contact => contact.number === number)) {
+      Notify.failure(`${number} is already in contacts.`);
+      return false;
+    }
     evt.preventDefault();
     dispatch(addNewContact(name, number));
     setName('');
     setNumber('');
   };
+
   return (
     <form onSubmit={handleSubmit} className={Style.form}>
       <label className={Style.formLabel} htmlFor={NameInputFormId}>

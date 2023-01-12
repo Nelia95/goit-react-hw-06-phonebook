@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Style from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 import { setFilter } from 'redux/filterSlice';
 
 const searchId = uuidv4();
-const Filter = ({ value }) => {
+const Filter = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
   return (
@@ -26,8 +26,8 @@ const Filter = ({ value }) => {
   );
 };
 
-Filter.propTypes = {
-  value: PropTypes.string,
-};
+// Filter.propTypes = {
+//   value: PropTypes.string,
+// };
 
 export default Filter;
