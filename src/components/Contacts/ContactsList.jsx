@@ -8,7 +8,18 @@ import { getContact } from 'redux/selectors';
 const ContactList = () => {
   const filter = useSelector(getFilter);
   const contacts = useSelector(getContact);
+  console.log(filter);
+  console.log(contacts);
   const filtredContacts = () => {
+    // const normalizedFilter = filter.toLowerCase();
+    // const filtredContacts = contacts.filter(contact =>
+    //   contact.name.toLowerCase().includes(normalizedFilter)
+    // );
+    // console.log(filtredContacts);
+    //   return contacts.filter(contact =>
+    //     contact.name.toLowerCase().includes(normalizedFilter)
+    //   );
+
     if (filter) {
       const normalizedFilter = filter.toLowerCase();
       if (contacts.length !== 0) {
@@ -20,6 +31,7 @@ const ContactList = () => {
     return contacts;
   };
   const contactsFiltred = filtredContacts();
+  console.log(contactsFiltred);
   return (
     <ul className={Style.contactsList}>
       {contactsFiltred &&
@@ -30,11 +42,4 @@ const ContactList = () => {
   );
 };
 
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-// };
 export default ContactList;
