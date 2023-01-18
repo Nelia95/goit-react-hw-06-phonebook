@@ -33,6 +33,8 @@ const FormPhoneBook = () => {
   };
 
   const handleSubmit = evt => {
+    evt.preventDefault();
+
     if (contacts.find(contact => contact.name === name)) {
       Notify.failure(`${name} is already in contacts.`);
       return false;
@@ -40,7 +42,6 @@ const FormPhoneBook = () => {
       Notify.failure(`${number} is already in contacts.`);
       return false;
     }
-    evt.preventDefault();
     dispatch(addNewContact(name, number));
     setName('');
     setNumber('');
